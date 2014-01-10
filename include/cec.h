@@ -34,6 +34,9 @@
 #ifndef CECEXPORTS_H_
 #define CECEXPORTS_H_
 
+#ifdef __ANDROID__
+#include "new_delete.h"
+#endif
 #include "cectypes.h"
 
 #define LIBCEC_VERSION_CURRENT CEC_SERVER_VERSION_CURRENT
