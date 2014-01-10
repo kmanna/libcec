@@ -124,7 +124,7 @@ std::string CTcpServerSocket::GetName(void)
 ISocket* CTcpServerSocket::Accept(void)
 {
   struct sockaddr clientAddr;
-  unsigned int iClientLen(sizeof(clientAddr));
+  socklen_t iClientLen(sizeof(clientAddr));
   tcp_socket_t client = accept(m_socket, &clientAddr, &iClientLen);
 
   if (client != INVALID_SOCKET_VALUE)
