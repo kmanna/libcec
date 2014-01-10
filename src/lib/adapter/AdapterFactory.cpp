@@ -132,9 +132,7 @@ IAdapterCommunication *CAdapterFactory::GetInstance(const char *strPort, uint16_
   return new CUSBCECAdapterCommunication(m_lib->m_cec, strPort, iBaudRate);
 #endif
 
-#if !defined(HAVE_RPI_API) && !defined(HAVE_P8_USB) && !defined(HAVE_TDA995X_API)
   return NULL;
-#endif
 }
 
 void CAdapterFactory::InitVideoStandalone(void)
