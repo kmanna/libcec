@@ -7,6 +7,14 @@ libcec_includes := \
 	$(LOCAL_PATH)/include \
 
 
+libcec_p8_src := \
+	src/lib/adapter/Pulse-Eight/USBCECAdapterCommunication.cpp \
+	src/lib/adapter/Pulse-Eight/USBCECAdapterMessage.cpp \
+	src/lib/adapter/Pulse-Eight/USBCECAdapterMessageQueue.cpp \
+	src/lib/adapter/Pulse-Eight/USBCECAdapterDetection.cpp \
+	src/lib/adapter/Pulse-Eight/USBCECAdapterCommands.cpp \
+
+
 libcec_src := \
 	src/lib/LibCEC.cpp \
 	src/lib/LibCECC.cpp \
@@ -33,18 +41,18 @@ libcec_src := \
 	src/lib/implementations/SLCommandHandler.cpp \
 	src/lib/CECClient.cpp \
 	src/lib/adapter/AdapterFactory.cpp \
-	src/lib/adapter/Pulse-Eight/USBCECAdapterCommunication.cpp \
-	src/lib/adapter/Pulse-Eight/USBCECAdapterMessage.cpp \
-	src/lib/adapter/Pulse-Eight/USBCECAdapterMessageQueue.cpp \
-	src/lib/adapter/Pulse-Eight/USBCECAdapterDetection.cpp \
-	src/lib/adapter/Pulse-Eight/USBCECAdapterCommands.cpp \
+
+
+libcec_src += $(libcec_p8_src)
+libcec_cflags += -DHAVE_P8_USB
+
 
 #
 # libcec
 #
 include $(CLEAR_VARS)
 LOCAL_C_INCLUDES := $(libcec_includes)
-LOCAL_CFLAGS := -DHAVE_P8_USB
+LOCAL_CFLAGS := $(libcec_cflags)
 LOCAL_MODULE := libcec
 LOCAL_MODULE_TAGS=optional
 LOCAL_SHARED_LIBRARIES := liblog libcutils libbinder libutils libstlport
@@ -52,7 +60,6 @@ LOCAL_SRC_FILES := $(libcec_src)
 # Android ARM targets fail to pass this through in transform-o-to-executable-inner
 #LOCAL_LDLIBS := -ldl
 LOCAL_LDFLAGS := -ldl
-#include $(BUILD_STATIC_LIBRARY)
 include $(BUILD_SHARED_LIBRARY)
 
 #
@@ -60,15 +67,13 @@ include $(BUILD_SHARED_LIBRARY)
 #
 include $(CLEAR_VARS)
 LOCAL_C_INCLUDES := $(libcec_includes)
-LOCAL_CFLAGS := -DHAVE_P8_USB
+LOCAL_CFLAGS := $(libcec_cflags)
 LOCAL_MODULE := cec-client
 LOCAL_MODULE_TAGS=optional
 LOCAL_SHARED_LIBRARIES += libcutils libbinder libutils libstlport
-#LOCAL_STATIC_LIBRARIES += libcec
 # Android ARM targets fail to pass this through in transform-o-to-executable-inner
 #LOCAL_LDLIBS := -ldl
 LOCAL_LDFLAGS := -ldl
 LOCAL_SRC_FILES := src/testclient/main.cpp
 include $(BUILD_EXECUTABLE)
-
 
