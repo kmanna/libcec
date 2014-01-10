@@ -295,6 +295,17 @@ namespace CEC {
 #define CEC_TDA995x_VIRTUAL_COM		"CuBox"
 
 /*!
+ * the path to use for the OMAP4's CEC wire
+ */
+#define CEC_OMAP4_PATH                 "/dev/cec"
+
+/*!
+ * the name of the virtual COM port to use for the OMAP4's CEC wire
+ */
+#define CEC_OMAP4_VIRTUAL_COM          "OMAP4"
+
+
+/*!
  * Mimimum client version
  */
 #define CEC_MIN_LIB_VERSION          2
@@ -858,7 +869,8 @@ typedef enum cec_adapter_type
   ADAPTERTYPE_P8_EXTERNAL      = 0x1,
   ADAPTERTYPE_P8_DAUGHTERBOARD = 0x2,
   ADAPTERTYPE_RPI              = 0x100,
-  ADAPTERTYPE_TDA995x          = 0x200
+  ADAPTERTYPE_TDA995x          = 0x200,
+  ADAPTERTYPE_OMAP4            = 0x300
 } cec_adapter_type;
 
 typedef struct cec_menu_language

@@ -15,6 +15,11 @@ libcec_p8_src := \
 	src/lib/adapter/Pulse-Eight/USBCECAdapterCommands.cpp \
 
 
+libcec_omap4_src := \
+	src/lib/adapter/OMAP4/OMAP4CECAdapterCommunication.cpp \
+	src/lib/adapter/OMAP4/OMAP4CECAdapterDetection.cpp \
+
+
 libcec_src := \
 	src/lib/LibCEC.cpp \
 	src/lib/LibCECC.cpp \
@@ -43,9 +48,13 @@ libcec_src := \
 	src/lib/adapter/AdapterFactory.cpp \
 
 
+ifeq ($(TARGET_BOARD_PLATFORM),omap4)
+libcec_src += $(libcec_omap4_src)
+libcec_cflags += -DHAVE_OMAP4_API
+else
 libcec_src += $(libcec_p8_src)
 libcec_cflags += -DHAVE_P8_USB
-
+endif
 
 #
 # libcec
